@@ -3,6 +3,8 @@ package com.marcusprojeto.projetojpa.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -16,6 +18,10 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String passowrd;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
+
 
     public User() {
     }
@@ -66,6 +72,10 @@ public class User implements Serializable {
 
     public void setPassowrd(String passowrd) {
         this.passowrd = passowrd;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     @Override
