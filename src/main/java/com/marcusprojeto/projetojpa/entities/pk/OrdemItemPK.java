@@ -4,7 +4,6 @@ import com.marcusprojeto.projetojpa.entities.Order;
 import com.marcusprojeto.projetojpa.entities.Product;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
 import java.util.Objects;
@@ -35,6 +34,8 @@ public class OrdemItemPK {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

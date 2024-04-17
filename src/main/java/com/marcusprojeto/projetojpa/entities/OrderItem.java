@@ -1,5 +1,6 @@
 package com.marcusprojeto.projetojpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcusprojeto.projetojpa.entities.pk.OrdemItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -9,9 +10,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrderItem {
+public class OrderItem  {
     @EmbeddedId
-    private OrdemItemPK id;
+    private OrdemItemPK id = new OrdemItemPK();
 
     private Integer quantity;
     private Double price;
@@ -24,7 +25,9 @@ public class OrderItem {
         id.setProduct(product);
         this.price = price;
         this.quantity = quantity;
+        
     }
+    @JsonIgnore
     public Order getOrder(){
         return id.getOrder();
     }
@@ -42,17 +45,6 @@ public class OrderItem {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
 
     @Override
     public boolean equals(Object o) {
