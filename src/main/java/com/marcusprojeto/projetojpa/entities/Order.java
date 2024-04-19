@@ -77,6 +77,15 @@ public class Order  implements Serializable {
         }
     }
 
+    public Double getTotal(){
+        double soma =0;
+        for (OrderItem x : items){
+            soma += x.getSubTotal();
+        }
+        return soma;
+    }
+
+
     public Set<OrderItem> getItems(){
         return items;
     }

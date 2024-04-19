@@ -50,6 +50,10 @@ public class OrderItem  {
         return quantity;
     }
 
+    public Double getSubTotal(){
+        return  price * quantity;
+    }
+
 
     @Override
     public boolean equals(Object o) {
