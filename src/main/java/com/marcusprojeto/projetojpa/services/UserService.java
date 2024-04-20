@@ -11,35 +11,45 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserRepositorie repositorie;
 
-    public List<User> findeALl(){
-        return repositorie.findAll();
+    @Autowired
+    private UserRepositorie repository;
+
+    public List<User> findAll() {
+        return repository.findAll();
     }
 
-
-    public User findById(Long id){
-        Optional<User> obj = repositorie.findById(id);
+    public User findById(Long id) {
+        Optional<User> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
-    public User insert (User obj){
-        return repositorie.save(obj);
+
+    public User insert(User obj) {
+        return repository.save(obj);
     }
 
-    public void delete (Long id){
-        repositorie.deleteById(id);
+
+    public void delete(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        }
+        else {
+            throw new ResourceNotFoundException(id);
+        }
+
     }
 
-    public User update(Long id , User obj){
-        User entity = repositorie.getReferenceById(id);
-        updateData(entity , obj);
-        return repositorie.save(entity);
+    public User update(Long id, User obj) {
+        User entity = repository.getReferenceById(id);
+        updateData(entity, obj);
+        return repository.save(entity);
+
+
     }
 
     private void updateData(User entity, User obj) {
         entity.setName(obj.getName());
         entity.setEmail(obj.getEmail());
-        entity.setPhone((obj.getPhone()));
+        entity.setPhone(obj.getPhone());
     }
 }
