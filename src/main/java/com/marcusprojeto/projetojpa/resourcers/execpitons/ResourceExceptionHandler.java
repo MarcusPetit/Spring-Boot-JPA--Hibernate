@@ -1,5 +1,6 @@
 package com.marcusprojeto.projetojpa.resourcers.execpitons;
 
+import com.marcusprojeto.projetojpa.services.exeptions.DatabaseException;
 import com.marcusprojeto.projetojpa.services.exeptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
