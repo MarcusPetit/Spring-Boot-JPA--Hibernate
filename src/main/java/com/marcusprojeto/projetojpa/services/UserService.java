@@ -2,8 +2,11 @@ package com.marcusprojeto.projetojpa.services;
 
 import com.marcusprojeto.projetojpa.entities.User;
 import com.marcusprojeto.projetojpa.repositories.UserRepositorie;
+import com.marcusprojeto.projetojpa.resourcers.execpitons.DatabaseException;
 import com.marcusprojeto.projetojpa.services.exeptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,13 +33,13 @@ public class UserService {
 
 
     public void delete(Long id) {
-        if (repository.existsById(id)) {
+        try {
             repository.deleteById(id);
-        }
-        else {
+        }catch (EmptyResultDataAccessException e){
             throw new ResourceNotFoundException(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
         }
-
     }
 
     public User update(Long id, User obj) {
